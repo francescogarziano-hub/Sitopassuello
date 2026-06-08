@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design – Sito Sociologico Satirico</title>
+    <style>
+        /* Font declarations */
+        @font-face { font-family:'PramukhRounded'; font-weight:800; src:url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Extrabold.otf') format('opentype'); }
+        @font-face { font-family:'SpaceMono'; font-weight:400; src:url('./fonts/SpaceMono_CorpoTesto/SpaceMono-Regular.ttf') format('truetype'); }
+
+        /* Reset / base */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            background-color: #B0AFAE;
+            overflow-x: hidden;
+            font-family: 'SpaceMono', monospace;
+        }
+
+        /* Back button */
+        #back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            background: #F467B9;
+            color: #fff;
+            border-radius: 999px;
+            font-family: 'PramukhRounded', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(244,103,185,.4);
+            transition: transform .2s, background .2s;
+        }
+        #back-btn:hover { background: #B34079; transform: scale(1.05); }
+        #back-btn svg { width: 1.2rem; height: 1.2rem; }
+
+        .section {
+            width: 100vw;
+            min-height: 140vh; /* Sezioni ampie per evitare tagli di testo */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title {
+            font-family: 'PramukhRounded', sans-serif;
+            font-weight: 800;
+            font-size: clamp(4rem, 9vw, 9.5rem); /* Dimensione generosa ma controllata per non tagliare */
+            line-height: 1.1;
+            text-align: center;
+            color: #F467B9; /* Fallback */
+            -webkit-text-stroke: 3px white;
+            text-shadow: 6px 6px 0px #B34079;
+            position: absolute;
+            z-index: 20; /* Sopra le immagini e sopra il testo */
+            width: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            word-wrap: break-word;
+        }
+
+        /* Varie combinazioni colore per i titoli per un look kidcore */
+        .section:nth-child(even) .title {
+            color: #bad38a;
+            -webkit-text-stroke: 4px #F467B9;
+            text-shadow: 8px 8px 0px #fff;
+        }
+        .section:nth-child(odd) .title {
+            color: #66b7df;
+            -webkit-text-stroke: 3px #fff;
+            text-shadow: 8px 8px 0px #df7b38;
+        }
+
+        .text-block {
+            font-family: 'SpaceMono', monospace;
+            font-size: clamp(0.75rem, 0.95vw, 1.1rem); /* Testo leggermente ridotto per leggibilità ed eleganza */
+            line-height: 1.45;
+            padding: 1rem;
+            position: absolute;
+            z-index: 10; /* Sopra le immagini (z-index 1) */
+            font-weight: bold;
+        }
+
+        .collage-img {
+            position: absolute;
+            object-fit: contain;
+            filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.15));
+            z-index: 1; /* Sotto il testo e sotto i titoli */
+        }
+    </style>
+</head>
+<body>
+
+    <a id="back-btn" href="./index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Torna alla Home
+    </a>
+
+    <div class="section" style="background-color: #e370b6;">
+        <div class="text-block" style="color: #ebdb57; bottom: 10%; left: 6%; width: 40%; text-align: left;">L’opera non è solo assurda o provocatoria: usa proprio il grottesco per criticare il presente. Il fatto che i personaggi facciano uscire dal sedere fotografie, rende l’immagine volutamente sgradevole, quasi offensiva, ma è anche un modo per denunciare la produzione incessante di immagini nel mondo digitale. La fotografia, che di solito è associata a controllo, memoria e valore, viene qui ridotta a un gesto corporeo e degradante, come se la sovrapproduzione visiva avesse perso ogni dignità. In questo senso, la parte disturbante</div>
+        <div class="text-block" style="color: #ebdb57; bottom: 10%; right: 6%; width: 40%; text-align: right;">diventa anche una forma di protesta contro il potere delle piattaforme, degli algoritmi e dell’ossessione contemporanea per l’immagine. L’opera unisce una dimensione disturbante a una forte carica di protesta. Il gesto grottesco con cui i personaggi producono fotografie trasforma l’immagine in un atto corporeo, quasi degradante, mettendo in crisi l’idea stessa di fotografia come oggetto prezioso o neutro. Dietro l’assurdità si legge una critica alla sovrapproduzione visiva e al dominio delle piattaforme digitali, che riducono l’immagine a flusso continuo e senza valore.</div>
+        <img src="./design_page/sezione%201/immagini_1/hfbwfd.png" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%201/immagini_1/zuck.png" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <img src="./design_page/sezione%201/immagini_1/!!!.png" class="collage-img" style="top: 62%; left: 38%; right: auto; bottom: auto; width: 13%; transform: rotate(-10deg);" />
+        <div class="title" style="top: 8%;">
+            Ad Art Basel Miami Beach si aggirano dei cani-cyborg con le facce di Musk e Zuckerberg
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #b0afae;">
+        <div class="text-block" style="color: #B34079; bottom: 10%; left: 6%; width: 40%; text-align: left;">Le sue creazioni giocano sul contrasto tra estetica da giocattolo e contenuti violenti o psicologicamente pesanti, trasformando ciò che sembra innocuo in qualcosa di ambiguo e destabilizzante. Il suo linguaggio visivo non cerca la tenerezza, ma il disagio: dietro le forme morbide e pop emerge un’ironia nera che rende tutto più straniante. È proprio questa tensione tra dolcezza e crudeltà a renderlo interessante. Nel balloonism, questo si traduce in una forma seducente che contiene un significato oscuro e profondo.</div>
+        <div class="text-block" style="color: #B34079; bottom: 10%; right: 6%; width: 40%; text-align: right;">La sedia elettrica è uno degli elementi più forti di questo immaginario. Viene resa con un’estetica quasi da oggetto per bambini, e proprio per questo il suo effetto è ancora più perturbante. La forma è semplice, diretta, quasi caricaturale, ma il riferimento alla pena capitale introduce subito un senso di violenza latente. Shampoooty trasforma così un simbolo di morte in un oggetto visivamente attraente e paradossale. Il risultato è un cortocircuito tra gioco e punizione, tra attrazione e repulsione.</div>
+        <img src="./design_page/sezione%202/immagini_2/shampooty_sedia_elettrica.png" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%202/immagini_2/PASSUELLOOOO%202.png" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <img src="./design_page/sezione%202/immagini_2/STICKER.png" class="collage-img" style="top: 62%; left: 38%; right: auto; bottom: auto; width: 26%; transform: rotate(-10deg);" />
+        <div class="title" style="top: 8%; font-size: clamp(3.8rem, 8.55vw, 9.025rem);">
+            Shampoooty costruisce un immaginario che sembra infantile solo in apparenza, ma che in realtà è attraversato da una vena sadica, inquietante e volutamente disturbante.
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #bad38a;">
+        <div class="text-block" style="color: #F467B9; bottom: 10%; left: 6%; width: 40%; text-align: left;">ILO Light si distingue per una ricerca formale che unisce funzionalità e presenza scultorea. La lampada si basa su un sistema composto da due elementi: una base fissa e una parte mobile, che insieme creano un oggetto ibrido, pratico ma anche fortemente espressivo. Dal punto di vista visivo, colpiscono le forme morbide, compatte e arrotondate, che trasmettono un senso di equilibrio e familiarità. La silhouette è semplice ma non anonima: sembra quasi “gonfia”, come se fosse stata modellata per risultare accogliente, discreta e allo stesso tempo iconica. Anche la scelta dei colori, generalmente neutri o delicati, contribuisce a rafforzare questa sensazione</div>
+        <div class="text-block" style="color: #F467B9; bottom: 10%; right: 6%; width: 40%; text-align: right;">di calma e leggerezza, evitando ogni rigidità tecnica. L’analisi stilistica mette in evidenza un linguaggio vicino al balloonism, perché la lampada lavora molto sull’idea di volume, morbidezza e immediatezza visiva. Le sue forme richiamano oggetti quotidiani resi più giocosi e più affettivi, quasi infantili, ma senza perdere eleganza. È proprio questa ambivalenza che la rende interessante: da un lato è un prodotto utile, dall’altro comunica una dimensione emotiva e sensoriale. Le assonanze con il balloonism stanno quindi nell’effetto “chunky pop”, nella piacevolezza tattile suggerita dalla forma e nella capacità di trasformare un oggetto tecnico in una presenza poetica, domestica e contemporanea.</div>
+        <img src="./design_page/sezione%203/immagini_3/ilo-lamp-05%202.webp" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%203/immagini_3/star2.png" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <img src="./design_page/sezione%203/immagini_3/cp5rV.jpg" class="collage-img" style="top: 62%; left: 38%; right: auto; bottom: auto; width: 26%; transform: rotate(-10deg);" />
+        <div class="title" style="top: 15%;">
+            ILO  LIGHT - STUDIO ARIETTI
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #b0afae;">
+        <div class="text-block" style="color: #df7b38; bottom: 10%; left: 6%; width: 40%; text-align: left;">La IKEA Inflatable Chair 2026 interpreta il tema del gioco attraverso una forma che sembra quasi sospesa tra oggetto d’arredo e presenza ludica. La sua natura gonfiabile è centrale: non è solo un dettaglio tecnico, ma il vero elemento concettuale del progetto. Il fatto che la sedia possa essere riempita d’aria la rende leggera, temporanea, quasi instabile, e proprio per questo vicina a un immaginario infantile, dove ciò che conta non è la solidità ma l’esperienza immediata dell’oggetto. In questo senso, la sedia non si limita a essere funzionale: diventa un gesto visivo, un volume morbido che comunica apertura, flessibilità e informalità. Dal punto di</div>
+        <div class="text-block" style="color: #df7b38; bottom: 10%; right: 6%; width: 40%; text-align: right;">vista editoriale, ciò che colpisce è il modo in cui IKEA trasforma un archetipo del design domestico in un corpo “gonfiato”, volutamente ampio e accogliente. La forma influenza il significato: la sedia non appare rigida o autorevole, ma simpatica, accessibile, quasi simpateticamente fragile. Ed è proprio questa fragilità a renderla interessante nel tuo tema, perché il gonfiarsi diventa una metafora visiva di qualcosa che prende spazio, che si espande, che cambia stato. Il collegamento con il balloonism si trova nella ricerca di volumi morbidi, pop e immediatamente leggibili, capaci di evocare una dimensione giocosa ma anche un’idea più profonda di comfort, leggerezza e trasformazione dell’oggetto quotidiano.</div>
+        <img src="./design_page/sezione%204/immagini_4/ikea-inflatable-chair-milan-design-week-ps-collection_dezeen_2364_col_5.png" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <div class="title" style="top: 15%;">
+            IKEA - INFLATABLE CHAIR - 2026
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #ebdb57;">
+        <div class="text-block" style="color: #B34079; bottom: 10%; left: 6%; width: 40%; text-align: left;">I fan della commedia surrealista saranno felici di sapere che il creatore di webcomic virali e mago del visivo Chris (artista noto per i “Simpsons”) ha collaborato con lo studio londinese Blink Industries (candidato all’Oscar, vincitore di Emmy e BAFTA) e noto per “Don’t Hug Me I’m Scared”, “Wander to Wonder” e “Dead</div>
+        <div class="text-block" style="color: #B34079; bottom: 10%; right: 6%; width: 40%; text-align: right;">End: Paranormal Park” per una nuova, per la creazione di una serie animata intitolata: Il primo episodio in formato breve “kissing” è ora disponibile su YouTube. La sinossi recita: “Questo è il primo episodio, si intitola ‘kissing’ e se non hai mai baciato prima dovresti guardarlo e poi saprai esattamente come si fa XOX”</div>
+        <img src="./design_page/sezione%205/immagini_5/lOKwN.jpg" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%205/immagini_5/PASSUELLOOOO.jpg" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <div class="title" style="top: 15%;">
+            I’M GLAD I KNOW THAT NOW THANK YOU
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #66b7df;">
+        <div class="text-block" style="color: #ebdb57; bottom: 10%; left: 6%; width: 40%; text-align: left;">Progetto di Voluptuary Ceramics, il brand/art studio ceramico di Sydney che realizza pezzi fatti a mano. Il progetto compare online nel 2025 e viene presentato come un supporto da parete per fazzoletti, funzionale ma anche scultoreo e volutamente assurdo. L’oggetto trasforma un elemento domestico quotidiano in una scultura ironica e funzionale, con la forma di un grande naso</div>
+        <div class="text-block" style="color: #ebdb57; bottom: 10%; right: 6%; width: 40%; text-align: right;">che rende il progetto immediatamente riconoscibile. L’aspetto più interessante è il contrasto tra utilità e assurdità: un oggetto pratico diventa anche decorazione. Si collega al balloonism per la sua estetica chunky pop, volumetrica e giocosa, che usa una forma morbida e ingrandita per dare a un oggetto comune un significato più profondo legato al corpo e al design.</div>
+        <img src="./design_page/sezione%206/immagini_6/_Enhance%20image%20quality%20to%20premium%20resolution,%20ultra-sharp%20details,%20professional%20photo%20finish%20—%20preserve%20exact%20original%20structure,%20composition,%20shapes,%20lines,%20proportions,%20and%20layout%20without%20any%20modifications.%20Upscale%20only.%20Do%20not%20alter,%20redesign….png" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%206/immagini_6/Voluptuary-Wordmark-3D.png.webp" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <div class="title" style="top: 15%;">
+            THE BIG SCHNOZZ
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #b0afae;">
+        <div class="text-block" style="color: #e370b6; bottom: 10%; left: 6%; width: 40%; text-align: left;">Gustaf Westman è un designer svedese diventato molto riconoscibile per il suo linguaggio visivo giocoso, morbido e fortemente pop. Il suo stile si basa su forme arrotondate, volumi pieni, linee sinuose e colori vivaci, spesso usati per trasformare oggetti comuni in presenze quasi scultoree. In un periodo in cui il design cerca di essere meno rigido e più espressivo, Westman propone un immaginario fresco, ironico e accessibile, capace di parlare sia al mondo</div>
+        <div class="text-block" style="color: #e370b6; bottom: 10%; right: 6%; width: 40%; text-align: right;">dell’arredo sia a quello della cultura visiva online. Il tema della baguette si inserisce bene in questa poetica perché richiama un oggetto semplice e quotidiano, reinterpretato però con una forma ironica, morbida e seducente. Il collegamento con il balloonism è evidente nella ricerca di volumi “chunky”, nella sensazione di leggerezza visiva e nella capacità di dare a una forma infantile o giocosa un significato più profondo, legato al piacere, alla memoria e all’estetica contemporanea.</div>
+        <img src="./design_page/sezione%207/immagini_7/baguette.png" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%207/immagini_7/gustaf-westman-spiral-baguette-holder-bright-pink-loaf-bread-handbag-designboom-01.jpg" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <div class="title" style="top: 15%;">
+            BAGUETTE
+        </div>
+    </div>
+
+    <div class="section" style="background-color: #df7b38;">
+        <div class="text-block" style="color: #f5dad8; bottom: 10%; left: 6%; width: 40%; text-align: left;">McDonald’s alla Design Week si presenta come un’installazione che gioca con forme piene, superfici morbide e colori intensi, trasformando il brand in un’immagine quasi sospesa, più vicina a un ambiente scenografico che a uno spazio promozionale tradizionale. La piscina diventa un volume avvolgente, capace di occupare lo spazio con una presenza espansa e immediata, mentre la palette cromatica rafforza l’effetto di attrazione visiva e di leggerezza apparente. Il progetto funziona perché mette in scena</div>
+        <div class="text-block" style="color: #f5dad8; bottom: 10%; right: 6%; width: 40%; text-align: right;">una forma familiare ma resa più ampia, più morbida, quasi dilatata, come se l’identità del marchio prendesse corpo in una dimensione accessibile e insieme artificiale. Dietro questa superficie brillante emerge una riflessione più sottile: il design viene usato come strumento di seduzione, capace di trasformare un segno commerciale in esperienza emotiva e percettiva. È proprio questa combinazione di volume, colore e immagine accogliente a creare il legame con il nostro tema, senza doverlo dichiarare apertamente.</div>
+        <img src="./design_page/sezione%208/immagini_8/pool%202.jpg" class="collage-img" style="top: 38%; left: 10%; right: auto; bottom: auto; width: 28%; transform: rotate(-5deg);" />
+        <img src="./design_page/sezione%208/immagini_8/week.png" class="collage-img" style="top: 36%; left: auto; right: 12%; bottom: auto; width: 30%; transform: rotate(8deg);" />
+        <img src="./design_page/sezione%208/immagini_8/POOOOOL.png" class="collage-img" style="top: 62%; left: 38%; right: auto; bottom: auto; width: 26%; transform: rotate(-10deg);" />
+        <div class="title" style="top: 15%;">
+            MCDONALD'S
+        </div>
+    </div>
+
+</body>
+</html>

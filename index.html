@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sito Sociologico Satirico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pastello-pink': '#F467B9',
+                        'pastello-dark-pink': '#B34079',
+                        'pastello-light-pink': '#FFC1C1',
+                        'pastello-off-white': '#EAE8E1',
+                        'pastello-gray': '#B0AFAE',
+                        'pastello-dark-gray': '#2E383A',
+                    },
+                    fontFamily: {
+                        'title': ['PramukhRounded', 'sans-serif'],
+                        'subtitle': ['Thunder', 'sans-serif'],
+                        'body': ['SpaceMono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'PramukhRounded';
+            src: url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Bold.otf') format('opentype');
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: 'Thunder';
+            src: url('./fonts/Thunder_Titolazione1/Thunder-BoldHC.otf') format('opentype');
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: 'SpaceMono';
+            src: url('./fonts/SpaceMono_CorpoTesto/SpaceMono-Regular.ttf') format('truetype');
+            font-weight: normal;
+        }
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle, #EAE8E1 0%, #FFC1C1 100%);
+            font-family: 'SpaceMono', monospace;
+        }
+        #bg-image {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('./images/sfondo.png') center/cover no-repeat;
+            z-index: -1;
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'PramukhRounded', sans-serif;
+            color: #F467B9;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+    
+    <!-- Import Map for Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="bg-image"></div>
+    <div id="loading">Gonfiando il palloncino...</div>
+    <div id="canvas-container"></div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

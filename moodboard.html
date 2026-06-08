@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodboard – Sito Sociologico Satirico</title>
+    <style>
+        @font-face { font-family:'PramukhRounded'; font-weight:700; src:url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Bold.otf') format('opentype'); }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background: #EAE8E1;
+            overflow-x: hidden;
+        }
+
+        /* ── Back button ─────────────────────────────── */
+        #back-btn {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 2000;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.3rem;
+            background: #F467B9;
+            color: #fff;
+            border-radius: 999px;
+            font-family: 'PramukhRounded', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(244,103,185,.4);
+            transition: background .2s;
+        }
+        #back-btn:hover { background: #B34079; }
+        #back-btn svg { width:1.1rem; height:1.1rem; }
+
+        /* ── Masonry mosaic ──────────────────────────── */
+        #mosaic {
+            column-count: 4;
+            column-gap: 0;
+            width: 100%;
+        }
+
+        .tile {
+            display: block;
+            width: 100%;
+            break-inside: avoid;
+            line-height: 0;
+        }
+
+        .tile img {
+            width: 100%;
+            height: auto;
+            display: block;
+            vertical-align: bottom;
+        }
+
+        .color-tile {
+            width: 100%;
+            break-inside: avoid;
+        }
+
+        /* ── Stickers layer ──────────────────────────── */
+        #stickers-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden; /* il "recinto" */
+        }
+
+        .sticker {
+            position: absolute;
+            pointer-events: none; /* la fisica è gestita dal JS, non dal browser */
+            user-select: none;
+            will-change: transform, left, top;
+        }
+
+        .sticker img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a id="back-btn" href="./index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Torna alla Home
+    </a>
+
+    <div id="mosaic"></div>
+    <div id="stickers-layer"></div>
+
+    <script>
+    // ─────────────────────────────────────────────────────────
+    // 1. MOSAICO — tutte le immagini + riquadri colore
+    // ─────────────────────────────────────────────────────────
+    const moodImages = [
+        'images/images_moodboard/pool 2.jpg',
+        'images/images_moodboard/ilo-lamp-05 2.webp',
+        'images/images_moodboard/cjLBw.jpg',
+        'images/images_moodboard/ChatGPT Image 25 mag 2026, 15_28_39.png',
+        'images/images_moodboard/locandina.jpg',
+        'images/images_moodboard/Clara_Colette.png',
+        'images/images_moodboard/chris-simpsons-artist-thank-you-.format-webp.width-1440_xvZ8L1eB43vE7tFQ.webp',
+        'images/images_moodboard/lOKwN.jpg',
+        'images/images_moodboard/jbgu.jpg',
+        'images/images_moodboard/ikea-inflatable-chair-milan-design-week-ps-collection_dezeen_2364_col_5.png',
+        'images/images_moodboard/ClaraColetteMiramon_AW26_Lookbook_08_AnsgarSollmannPhotographer_for_BFW.png',
+        'images/images_moodboard/gustaf-westman-spiral-baguette-holder-bright-pink-loaf-bread-handbag-designboom-01.jpg',
+        'images/images_moodboard/ejhfuweh.jpg',
+        'images/images_moodboard/erjg3i.jpg',
+        'images/images_moodboard/PASSUELLOOOO_1.jpg',
+        'images/images_moodboard/femen_biennale.jpg',
+        'images/images_moodboard/image-1770704329068.jpg.webp',
+        'images/images_moodboard/cp5rV.jpg',
+        // Nuove immagini
+        'images/images_moodboard/123.png',
+        'images/images_moodboard/222.png',
+        'images/images_moodboard/333.png',
+        'images/images_moodboard/Blink_Industries.png',
+        'images/images_moodboard/Craig&Karls.png',
+        'images/images_moodboard/Marta_Minujín.png',
+        'images/images_moodboard/PASSUELLOOOO.png',
+        'images/images_moodboard/South_park_trump_1.png',
+    ];
+
+    // Riquadri colore — dal più grande al più piccolo
+    const colorTiles = [
+        { color: '#F467B9', height: 440 },
+        { color: '#FFC1C1', height: 370 },
+        { color: '#EAE8E1', height: 310 },
+        { color: '#EFDA32', height: 265 },
+        { color: '#2E383A', height: 225 },
+        { color: '#B0AFAE', height: 190 },
+        { color: '#9ADA5E', height: 160 },
+        { color: '#44B9E3', height: 135 },
+        { color: '#EF741E', height: 110 },
+        { color: '#D5233E', height: 88  },
+    ];
+
+    const mosaic = document.getElementById('mosaic');
+
+    // Posizioni in cui intercalare i colori (dopo N-esima immagine)
+    const insertAfter = new Set([2, 5, 8, 11, 14, 18, 21, 24, 4, 10]);
+    let colorQueue = [...colorTiles];
+
+    moodImages.forEach((src, i) => {
+        // Immagine
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.loading = 'lazy';
+        tile.appendChild(img);
+        mosaic.appendChild(tile);
+
+        // Eventuale riquadro colore dopo questa immagine
+        if (insertAfter.has(i) && colorQueue.length > 0) {
+            const ct = colorQueue.shift();
+            const div = document.createElement('div');
+            div.className = 'color-tile';
+            div.style.backgroundColor = ct.color;
+            div.style.height = ct.height + 'px';
+            mosaic.appendChild(div);
+        }
+    });
+
+    // ─────────────────────────────────────────────────────────
+    // 2. STICKERS con FISICA SU GHIACCIO
+    //    Ogni sticker ha posizione e velocità. La velocità decade
+    //    lentamente (attrito basso = ghiaccio). Quando il cursore
+    //    si avvicina, riceve un impulso di repulsione.
+    //    I bordi fanno da "recinto" con rimbalzo elastico.
+    // ─────────────────────────────────────────────────────────
+    const stickerFiles = [
+        { src: 'images/stickers/!!!.png',           w: 9  },
+        { src: 'images/stickers/INDICE.png',         w: 16 },
+        { src: 'images/stickers/POOOOOL.png',         w: 18 },
+        { src: 'images/stickers/STAR1.png',           w: 11 },
+        { src: 'images/stickers/STICKER.png',         w: 14 },
+        { src: 'images/stickers/baguette.png',        w: 13 },
+        { src: 'images/stickers/fiore per prato.png', w: 10 },
+        { src: 'images/stickers/hat1.png',            w: 15 },
+        { src: 'images/stickers/history-in-hd-05QvOWAzN3I-unsplash.png', w: 12 },
+        { src: 'images/stickers/hou.png',             w: 17 },
+        { src: 'images/stickers/orsetto morto.png',   w: 13 },
+        { src: 'images/stickers/orsetto vivo.png',    w: 11 },
+        { src: 'images/stickers/star2.png',           w: 8  },
+        { src: 'images/stickers/stella .png',         w: 10 },
+        { src: 'images/stickers/week.png',            w: 16 },
+        { src: 'images/stickers/zuck.png',            w: 14 },
+    ];
+
+    // Posizioni iniziali fisse — distribuite per tutta la pagina
+    const initPositions = [
+        { tx: 62, ty:  5, rot: -15 },
+        { tx: 30, ty:  8, rot:  22 },
+        { tx: 80, ty: 12, rot:  -8 },
+        { tx: 10, ty: 20, rot:  30 },
+        { tx: 50, ty: 24, rot: -20 },
+        { tx: 75, ty: 32, rot:  12 },
+        { tx: 20, ty: 38, rot: -35 },
+        { tx: 88, ty: 45, rot:   5 },
+        { tx: 40, ty: 50, rot:  18 },
+        { tx: 65, ty: 57, rot: -12 },
+        { tx: 15, ty: 63, rot:  25 },
+        { tx: 55, ty: 70, rot:  -7 },
+        { tx: 82, ty: 74, rot: -28 },
+        { tx: 35, ty: 80, rot:  14 },
+        { tx: 70, ty: 85, rot: -18 },
+        { tx:  8, ty: 90, rot:  33 },
+    ];
+
+    const layer = document.getElementById('stickers-layer');
+
+    // Oggetti fisica per ogni sticker
+    const physics = [];
+
+    stickerFiles.forEach((sf, i) => {
+        const pos = initPositions[i % initPositions.length];
+        const wVw = sf.w; // larghezza in vw
+
+        const el = document.createElement('div');
+        el.className = 'sticker';
+        el.style.width = wVw + 'vw';
+
+        const img = document.createElement('img');
+        img.src = sf.src;
+        img.alt = '';
+        img.loading = 'lazy';
+        el.appendChild(img);
+        layer.appendChild(el);
+
+        // Convertiamo le posizioni iniziali in pixel reali
+        const startX = (pos.tx / 100) * window.innerWidth;
+        const startY = (pos.ty / 100) * window.innerHeight;
+
+        el.style.left = startX + 'px';
+        el.style.top  = startY + 'px';
+        el.style.transform = `rotate(${pos.rot}deg)`;
+
+        physics.push({
+            el,
+            x: startX,
+            y: startY,
+            vx: 0,
+            vy: 0,
+            rot: pos.rot,       // rotazione base
+            vrot: 0,            // velocità angolare
+            wPx: 0,             // larghezza reale in px (calcolata dopo load)
+            hPx: 0,
+        });
+    });
+
+    // Dopo che le immagini sono caricate, recuperiamo dimensioni reali
+    window.addEventListener('load', () => {
+        physics.forEach(p => {
+            const rect = p.el.getBoundingClientRect();
+            p.wPx = rect.width;
+            p.hPx = rect.height;
+            // Se la dimensione non è ancora disponibile, usiamo stima
+            if (p.wPx === 0) p.wPx = p.el.offsetWidth || 100;
+            if (p.hPx === 0) p.hPx = p.el.offsetHeight || 100;
+        });
+    });
+
+    // Cursore
+    let mouseX = -9999, mouseY = -9999;
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    window.addEventListener('mouseleave', () => {
+        mouseX = -9999; mouseY = -9999;
+    });
+
+    // ── Loop fisico a 60fps ───────────────────────────────
+    const FRICTION   = 0.985;   // attrito basso = ghiaccio
+    const BOUNCE     = 0.65;    // coefficiente di rimbalzo
+    const REPULSE_R  = 130;     // raggio di repulsione del cursore (px)
+    const REPULSE_F  = 18;      // forza impulso
+    const ROT_DECAY  = 0.97;    // decadimento rotazione
+
+    function physicsLoop() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        physics.forEach(p => {
+            // Dimensioni reali (aggiornate post-load)
+            const w = p.el.offsetWidth  || 80;
+            const h = p.el.offsetHeight || 80;
+
+            // ── Repulsione dal cursore ────────────────────
+            const cx = p.x + w / 2;
+            const cy = p.y + h / 2;
+            const dx = cx - mouseX;
+            const dy = cy - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < REPULSE_R && dist > 1) {
+                // Forza inversamente proporzionale alla distanza
+                const force = (REPULSE_R - dist) / REPULSE_R * REPULSE_F;
+                p.vx += (dx / dist) * force;
+                p.vy += (dy / dist) * force;
+                // Piccola rotazione proporzionale alla forza
+                p.vrot += (Math.random() - 0.5) * force * 0.4;
+            }
+
+            // ── Attrito (ghiaccio) ────────────────────────
+            p.vx   *= FRICTION;
+            p.vy   *= FRICTION;
+            p.vrot *= ROT_DECAY;
+
+            // ── Aggiorna posizione ────────────────────────
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rot += p.vrot;
+
+            // ── Rimbalzo sui bordi (recinto) ──────────────
+            // Bordo sinistro
+            if (p.x < 0) {
+                p.x = 0;
+                p.vx = Math.abs(p.vx) * BOUNCE;
+                p.vrot *= -0.5;
+            }
+            // Bordo destro
+            if (p.x + w > vw) {
+                p.x = vw - w;
+                p.vx = -Math.abs(p.vx) * BOUNCE;
+                p.vrot *= -0.5;
+            }
+            // Bordo superiore
+            if (p.y < 0) {
+                p.y = 0;
+                p.vy = Math.abs(p.vy) * BOUNCE;
+                p.vrot *= -0.5;
+            }
+            // Bordo inferiore
+            if (p.y + h > vh) {
+                p.y = vh - h;
+                p.vy = -Math.abs(p.vy) * BOUNCE;
+                p.vrot *= -0.5;
+            }
+
+            // ── Applica trasformazione ────────────────────
+            p.el.style.left      = p.x + 'px';
+            p.el.style.top       = p.y + 'px';
+            p.el.style.transform = `rotate(${p.rot}deg)`;
+        });
+
+        requestAnimationFrame(physicsLoop);
+    }
+
+    requestAnimationFrame(physicsLoop);
+    </script>
+
+</body>
+</html>
