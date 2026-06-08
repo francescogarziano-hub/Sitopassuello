@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sito Sociologico Satirico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'PramukhRounded';
+            src: url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Bold.otf') format('opentype');
+        }
+        body {
+            margin: 0; padding: 0;
+            background-color: #EAE8E1;
+            overflow-x: hidden;
+        }
+        
+        /* Torna alla Home fissa e sempre in cima */
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 50;
+            background-color: #F467B9;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'PramukhRounded', sans-serif;
+            font-size: 1.25rem;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(244,103,185,0.4);
+            transition: background-color 0.2s;
+        }
+        .back-btn:hover { background-color: #B34079; }
+
+        .graph-section {
+            position: relative;
+            width: 100vw;
+            /* Rimuove gli spazi sotto le immagini inline */
+            line-height: 0;
+            font-size: 0;
+            margin: 0;
+            padding: 0;
+        }
+        .graph-section img.bg-graph {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Numeri animati */
+        .floating-number {
+            position: absolute;
+            z-index: 10;
+            /* L'animazione "float" simulazione palloncino gonfiabile */
+            animation: float 4s ease-in-out infinite alternate;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.25));
+        }
+        
+        /* Variazioni di durata e delay per renderli meno sincronizzati (fluttuazione più organica) */
+        .float-1 { animation-duration: 4.5s; animation-delay: 0s; }
+        .float-2 { animation-duration: 5.2s; animation-delay: -1.5s; }
+        .float-3 { animation-duration: 4.8s; animation-delay: -3s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-2.5%) translateX(1%) rotate(1deg);
+            }
+            100% {
+                transform: translateY(-5%) translateX(-1%) rotate(-1.5deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <a href="./index.html" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Torna alla Home
+    </a>
+
+    <!-- SEZIONE 1 (Grafico Giallo) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafici-01.png" class="bg-graph" alt="Grafico 1">
+        
+        <img src="./dasboard/numeri_floating/31%.png" class="floating-number float-2" 
+             style="width: 18%; left: 37%; top: 50%;" alt="31%">
+             
+        <img src="./dasboard/numeri_floating/23%.png" class="floating-number float-3" 
+             style="width: 17%; left: 62.2%; top: 45.5%;" alt="23%">
+    </div>
+
+    <!-- SEZIONE 2 (Grafico Rosa) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafici-02.png" class="bg-graph" alt="Grafico 2">
+        
+        <img src="./dasboard/numeri_floating/20.png" class="floating-number float-1" 
+             style="width: 14%; left: 20%; top: 65%;" alt="20">
+             
+        <img src="./dasboard/numeri_floating/30.png" class="floating-number float-2" 
+             style="width: 16%; left: 36%; top: 58%;" alt="30">
+             
+        <img src="./dasboard/numeri_floating/200.png" class="floating-number float-3" 
+             style="width: 24%; left: 54%; top: 52%;" alt="200">
+    </div>
+
+    <!-- SEZIONE 3 (Grafico Rosso) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafici-03.png" class="bg-graph" alt="Grafico 3">
+        
+        <img src="./dasboard/numeri_floating/5M.png" class="floating-number float-1" 
+             style="width: 11.5%; left: 23.5%; top: 58%;" alt="5M">
+             
+        <img src="./dasboard/numeri_floating/1M.png" class="floating-number float-2" 
+             style="width: 14.5%; left: 38%; top: 51.5%;" alt="1M">
+             
+        <img src="./dasboard/numeri_floating/8M.png" class="floating-number float-3" 
+             style="width: 16.5%; left: 57%; top: 45.5%;" alt="8M">
+    </div>
+
+    <!-- SEZIONE 4 (Nessun numero, l'ultima immagine del grafico) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafici-04.png" class="bg-graph" alt="Grafico 4">
+    </div>
+
+    <!-- SEZIONE 5 (Grafico Francesco) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafico%20francesco.png" class="bg-graph" alt="Grafico Francesco">
+    </div>
+
+    <!-- SEZIONE 6 (Grafico Francesco 2) -->
+    <div class="graph-section">
+        <img src="./dasboard/grafici/grafico%20francesco2.png" class="bg-graph" alt="Grafico Francesco 2">
+    </div>
+
+</body>
+</html>

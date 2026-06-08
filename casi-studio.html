@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casi Studio – Sito Sociologico Satirico</title>
+    <style>
+        /* ── Font declarations ── */
+        @font-face { font-family:'PramukhRounded'; font-weight:800; src:url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Extrabold.otf') format('opentype'); }
+        @font-face { font-family:'SpaceMono'; font-weight:400; src:url('./fonts/SpaceMono_CorpoTesto/SpaceMono-Regular.ttf') format('truetype'); }
+
+        /* ── Reset / base ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; overflow-x: hidden; font-family: 'SpaceMono', monospace; }
+
+        /* ── Back button ── */
+        #back-btn {
+            position: fixed;
+            top: 2rem; left: 2rem;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            background: #F467B9;
+            color: #fff;
+            border-radius: 999px;
+            font-family: 'PramukhRounded', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(244,103,185,.4);
+            transition: transform .2s, background .2s;
+        }
+        #back-btn:hover { background: #B34079; transform: scale(1.05); }
+        #back-btn svg { width: 1.2rem; height: 1.2rem; }
+
+        /* ── Section ── */
+        .section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── Testo alto – sopra il cerchio/immagine ── */
+        .text-alto {
+            position: absolute;
+            top: 5%;
+            left: 4%;
+            width: 36%;
+            font-family: 'SpaceMono', monospace;
+            font-size: clamp(0.65rem, 0.9vw, 1rem);
+            font-weight: 700;
+            line-height: 1.5;
+            z-index: 10;
+        }
+
+        /* ── Testo basso – sotto il cerchio/immagine ── */
+        .text-basso {
+            position: absolute;
+            bottom: 5%;
+            right: 4%;
+            width: 36%;
+            font-family: 'SpaceMono', monospace;
+            font-size: clamp(0.65rem, 0.9vw, 1rem);
+            font-weight: 700;
+            line-height: 1.5;
+            text-align: right;
+            z-index: 10;
+        }
+
+        /* ── Sticker generici ── */
+        .sticker {
+            position: absolute;
+            z-index: 8;
+            object-fit: contain;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        /* Posizioni specifiche degli sticker (alto-destra e basso-sinistra) */
+        .sticker-tr { /* top-right */
+            top: 5%;
+            right: 4%;
+            width: 22%;
+        }
+        .sticker-bl { /* bottom-left */
+            bottom: 5%;
+            left: 4%;
+            width: 22%;
+        }
+
+        /* ── Contenitore centrale: titolo circolare + immagine ── */
+        .center-stage {
+            position: relative;
+            /* +100% rispetto a prima: era min(65vw,65vh), ora min(65vw,65vh) rimane
+               ma l'immagine interna passa da 58% a 100% di quel box */
+            width: min(58vw, 58vh);
+            height: min(58vw, 58vh);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── Immagine centrale ingrandita del 100% ── */
+        .center-img {
+            position: absolute;
+            width: 100%;   /* era 58%, ora 100% = +100% */
+            height: 100%;
+            object-fit: contain;
+            z-index: 5;
+            filter: drop-shadow(0 8px 30px rgba(0,0,0,0.2));
+        }
+
+        /* ── Testo circolare animato ── */
+        .circle-title {
+            position: absolute;
+            /* Il cerchio del titolo deve essere più grande dell'immagine:
+               il center-stage è il 100% dell'immagine, il cerchio scala al 140% */
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            animation: spin-circle 16s linear infinite;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        @keyframes spin-circle {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        .circle-title svg { width: 100%; height: 100%; overflow: visible; }
+
+        .circle-title textPath {
+            font-family: 'PramukhRounded', sans-serif;
+            font-weight: 800;
+            /* +10% rispetto al 2.8rem precedente */
+            font-size: 3.08rem;
+            letter-spacing: 0.12em;
+            dominant-baseline: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <a id="back-btn" href="./index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Torna alla Home
+    </a>
+
+    <!-- ════════════════ SEZIONE 1 ════════════════ -->
+    <div class="section" style="background-color: #30383a;">
+
+        <p class="text-alto" style="color: #ebdb57; top: 14%;">
+            Le azioni performative di Pussy Riot durante la Biennale Arte 2026 trasformano lo spazio espositivo in un territorio di collisione tra spettacolo, dissenso e cultura visuale contemporanea. Nato a Mosca nel 2011 come collettivo femminista punk e anti-autoritario, Pussy Riot ha sempre utilizzato il linguaggio della performance come strumento di sabotaggio simbolico contro le strutture del potere politico, mediatico e patriarcale.
+        </p>
+
+        <!-- Sticker alto-destra -->
+        <img class="sticker sticker-tr"
+             src="./casistudio_page/casistudio_stickers/stickers-02.png"
+             alt="sticker" />
+        <!-- Sticker basso-sinistra -->
+        <img class="sticker sticker-bl"
+             src="./casistudio_page/casistudio_stickers/stickers-02.png"
+             alt="sticker" />
+
+        <div class="center-stage">
+            <img class="center-img" src="./casistudio_page/studio_1/immagine_1/femen_biennale.jpg" alt="Pussy Riot Biennale" />
+            <div class="circle-title">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <path id="s1-circle" d="M250,250 m-220,0 a220,220 0 1,1 440,0 a220,220 0 1,1 -440,0"/>
+                    </defs>
+                    <text fill="#ebdb57">
+                        <textPath href="#s1-circle">
+                            Pussy Riot – Biennale D'arte – Venezia 2026 – Pussy Riot – Biennale D'arte – Venezia 2026 –
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+        </div>
+
+        <p class="text-basso" style="color: #ebdb57;">
+            Maschere colorate, passamontagna fluo, materiali sintetici, superfici plastiche e oggetti inflatable costruiscono un'estetica volutamente infantile e pop. I colori baby (rosa acidi, verdi artificiali, gialli saturi) contrastano violentemente con il contenuto delle azioni: guerra, censura, controllo dei corpi, repressione statale.
+        </p>
+    </div>
+
+    <!-- ════════════════ SEZIONE 2 ════════════════ -->
+    <div class="section" style="background-color: #f5c3c2;">
+
+        <p class="text-alto" style="color: #30383a;">
+            Questo capo si inserisce in una ricerca contemporanea che usa il kitsch, il gioco e la regressione visiva come strumenti critici.
+        </p>
+
+        <!-- Sticker alto-destra -->
+        <img class="sticker sticker-tr"
+             src="./casistudio_page/casistudio_stickers/stickers-01.png"
+             alt="sticker" />
+        <!-- Sticker basso-sinistra -->
+        <img class="sticker sticker-bl"
+             src="./casistudio_page/casistudio_stickers/stickers-01.png"
+             alt="sticker" />
+
+        <div class="center-stage">
+            <img class="center-img" src="./casistudio_page/studio_2/immagine_2/Clara_Colette.png" alt="Clara Colette Miramon" />
+            <div class="circle-title">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <path id="s2-circle" d="M250,250 m-220,0 a220,220 0 1,1 440,0 a220,220 0 1,1 -440,0"/>
+                    </defs>
+                    <text fill="#30383a">
+                        <textPath href="#s2-circle">
+                            Plunge Neck Hoodie Dress — Clara Colette Miramon — Plunge Neck Hoodie Dress — Clara Colette Miramon —
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+        </div>
+
+        <p class="text-basso" style="color: #30383a;">
+            Il rosa candy, le balze e il cappuccio arricciato richiamano il linguaggio delle bambole ma viene applicato a una silhouette adulta e ipersessualizzata. Questo contrasto crea una tensione tra innocenza e controllo, tra gioco e spettacolarizzazione del corpo. L'estetica toy-like non semplifica il contenuto, ma lo rende più disturbante: trasforma il corpo in un simulacro glossy, una mascotte emotiva attraverso cui il potere estetizza desiderio, consumo e controllo.
+        </p>
+    </div>
+
+    <!-- ════════════════ SEZIONE 3 ════════════════ -->
+    <div class="section" style="background-color: #de9154;">
+
+        <p class="text-alto" style="color: #ebdb57;">
+            Le manifestazioni del 2025 nate negli Stati Uniti contro Donald Trump trasformano la protesta politica in una gigantesca scenografia pop, dove ironia, teatralità e cultura visuale diventano strumenti di opposizione collettiva.
+        </p>
+
+        <!-- Sticker alto-destra -->
+        <img class="sticker sticker-tr"
+             src="./casistudio_page/casistudio_stickers/stickers-03.png"
+             alt="sticker" />
+        <!-- Sticker basso-sinistra -->
+        <img class="sticker sticker-bl"
+             src="./casistudio_page/casistudio_stickers/stickers-06.png"
+             alt="sticker" />
+
+        <div class="center-stage">
+            <img class="center-img" src="./casistudio_page/studio_3/immagine_3/erjg3i.jpg" alt="No Kings Day" />
+            <div class="circle-title">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <path id="s3-circle" d="M250,250 m-220,0 a220,220 0 1,1 440,0 a220,220 0 1,1 -440,0"/>
+                    </defs>
+                    <text fill="#ebdb57">
+                        <textPath href="#s3-circle">
+                            No Kings Day – 28.03.2026 – No Kings Day – 28.03.2026 – No Kings Day – 28.03.2026 –
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+        </div>
+
+        <p class="text-basso" style="color: #ebdb57;">
+            Il movimento, sviluppatosi come risposta simbolica alla deriva autoritaria e alla personalizzazione spettacolare del potere, utilizza il linguaggio della caricatura per desacralizzare la figura del leader politico. Corone oversize, palloncini giganti e costumi volutamente grotteschi costruiscono un immaginario che oscilla tra parata carnevalesca e distopia contemporanea. Il potere viene ridotto a mascotte, balloon caricaturale, personaggio da meme.
+        </p>
+    </div>
+
+    <!-- ════════════════ SEZIONE 4 ════════════════ -->
+    <div class="section" style="background-color: #dd98b9;">
+
+        <p class="text-alto" style="color: #30383a;">
+            In Pluribus, il gioco assume la forma di un sistema di regole invisibili che organizza comportamento, percezione e partecipazione collettiva. I personaggi sembrano muoversi all'interno di un playground sociale governato da logiche superiori, dove il confine tra spontaneità e controllo viene continuamente manipolato.
+        </p>
+
+        <!-- Sticker alto-destra -->
+        <img class="sticker sticker-tr"
+             src="./casistudio_page/casistudio_stickers/stickers-04.png"
+             alt="sticker" />
+        <!-- Sticker basso-sinistra -->
+        <img class="sticker sticker-bl"
+             src="./casistudio_page/casistudio_stickers/stickers-05.png"
+             alt="sticker" />
+
+        <div class="center-stage">
+            <img class="center-img" src="./casistudio_page/studio_4/immagine_3/locandina.jpg" alt="Pluribus" />
+            <div class="circle-title">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <path id="s4-circle" d="M250,250 m-220,0 a220,220 0 1,1 440,0 a220,220 0 1,1 -440,0"/>
+                    </defs>
+                    <text fill="#30383a">
+                        <textPath href="#s4-circle">
+                            Pluribus – Pluribus – Pluribus – Pluribus – Pluribus – Pluribus – Pluribus – Pluribus – Pluribus –
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+        </div>
+
+        <p class="text-basso" style="color: #30383a;">
+            L'universo estetico di Pluribus lavora su ambienti controllati che evocano una quotidianità troppo perfetta per essere autentica. Le geometrie semplici, le architetture morbide e la pulizia quasi pubblicitaria dell'immagine costruiscono un'atmosfera che ricorda i mondi simulati dell'intrattenimento per bambini: spazi sicuri solo in apparenza, dietro cui emerge una tensione costante.
+        </p>
+    </div>
+
+    <script>
+    /*
+     * Sticker spin-on-hover con accelerazione/decelerazione smooth.
+     *
+     * Approccio: usiamo requestAnimationFrame per aggiornare direttamente il transform:rotate() ogni frame.
+     *
+     * - velocità massima: 4 giri/sec = 4 * 360 = 1440 deg/sec
+     * - tempo per arrivare a max: 4 secondi (accelerazione lineare)
+     * - quando il cursore esce: decelerazione lineare in 2 secondi fino a 0
+     */
+
+    const MAX_SPEED = 1440; // deg/sec (4 giri/sec)
+    const ACCEL_TIME = 4;   // secondi per raggiungere MAX_SPEED
+    const DECEL_TIME = 2;   // secondi per tornare a 0
+
+    const stickers = document.querySelectorAll('.sticker');
+
+    stickers.forEach(sticker => {
+        let angle = 0;
+        let speed = 0;          // deg/sec corrente
+        let hovering = false;
+        let lastTime = null;
+        let rafId = null;
+
+        function tick(ts) {
+            if (lastTime === null) lastTime = ts;
+            const dt = (ts - lastTime) / 1000; // delta in secondi
+            lastTime = ts;
+
+            if (hovering) {
+                // Accelerazione lineare verso MAX_SPEED
+                speed = Math.min(speed + (MAX_SPEED / ACCEL_TIME) * dt, MAX_SPEED);
+            } else {
+                // Decelerazione lineare verso 0
+                speed = Math.max(speed - (MAX_SPEED / DECEL_TIME) * dt, 0);
+            }
+
+            angle += speed * dt;
+            sticker.style.transform = `rotate(${angle}deg)`;
+
+            // Continua il loop finché c'è movimento O si sta accelerando
+            if (speed > 0 || hovering) {
+                rafId = requestAnimationFrame(tick);
+            } else {
+                rafId = null;
+            }
+        }
+
+        sticker.addEventListener('mouseenter', () => {
+            hovering = true;
+            if (!rafId) {
+                lastTime = null;
+                rafId = requestAnimationFrame(tick);
+            }
+        });
+
+        sticker.addEventListener('mouseleave', () => {
+            hovering = false;
+            // Il loop continua da solo finché la velocità scende a 0
+        });
+    });
+    </script>
+
+</body>
+</html>
