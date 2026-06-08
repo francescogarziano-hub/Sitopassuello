@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musica - Sito Sociologico Satirico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pastello-pink': '#F467B9',
+                        'pastello-dark-pink': '#B34079',
+                        'pastello-light-pink': '#FFC1C1',
+                        'pastello-off-white': '#EAE8E1',
+                        'pastello-gray': '#B0AFAE',
+                        'pastello-dark-gray': '#2E383A',
+                    },
+                    fontFamily: {
+                        'title': ['PramukhRounded', 'sans-serif'],
+                        'subtitle': ['Thunder', 'sans-serif'],
+                        'body': ['SpaceMono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'PramukhRounded';
+            src: url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Bold.otf') format('opentype');
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: 'Thunder';
+            src: url('./fonts/Thunder_Titolazione1/Thunder-BoldHC.otf') format('opentype');
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: 'SpaceMono';
+            src: url('./fonts/SpaceMono_CorpoTesto/SpaceMono-Regular.ttf') format('truetype');
+            font-weight: normal;
+        }
+        
+        body {
+            background-color: #EAE8E1;
+            font-family: 'SpaceMono', monospace;
+            color: #2E383A;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8 relative">
+    
+    <!-- Torna alla Home -->
+    <a href="./index.html" class="inline-flex items-center gap-2 px-4 py-2 bg-pastello-pink text-white rounded-full font-title text-xl hover:bg-pastello-dark-pink transition-colors absolute top-8 left-8 shadow-[0_4px_14px_rgba(244,103,185,0.4)]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Torna alla Home
+    </a>
+
+    <!-- Contenuto -->
+    <main class="max-w-4xl mx-auto mt-24 bg-white/50 backdrop-blur-md p-12 rounded-[3rem] shadow-xl border-4 border-pastello-light-pink">
+        <h1 class="font-title text-6xl text-pastello-dark-pink mb-4 text-center tracking-tight">Musica</h1>
+        <h2 class="font-subtitle text-3xl text-pastello-pink mb-8 text-center uppercase tracking-widest">Sottotitolo distopico in Thunder</h2>
+        
+        <div class="space-y-6 font-body text-lg leading-relaxed text-pastello-dark-gray">
+            <p>
+                Questo è lo scheletro della pagina. In futuro, qui inseriremo contenuti incentrati sul contrasto tra un'estetica infantile/giocosa e tematiche adulte, violente o distopiche legate alla satira del potere.
+            </p>
+            <p>
+                Il layout utilizza angoli molto arrotondati (claymorphism) e colori pastello per creare una falsa sensazione di sicurezza, in netto contrasto con i testi in <strong>SpaceMono</strong> che ricordano un terminale o un rapporto formale.
+            </p>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video – Sito Sociologico Satirico</title>
+    <style>
+        /* ── Font ── */
+        @font-face {
+            font-family: 'PramukhRoundedEBItalic';
+            src: url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-ExtraboldItalic.otf') format('opentype');
+            font-weight: 800;
+            font-style: italic;
+        }
+        @font-face {
+            font-family: 'PramukhRounded';
+            src: url('./fonts/PramukhRounded_Titolazione2/PramukhRounded-Bold.otf') format('opentype');
+            font-weight: bold;
+        }
+
+        /* ── Reset ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* ── BOTTONE BACK ── */
+        .back-btn {
+            position: fixed;
+            top: 1.2vmin;
+            left: 2vmin;
+            z-index: 50;
+            background-color: #F467B9;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.6vmin 1.2vmin;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5vmin;
+            font-family: 'PramukhRounded', sans-serif;
+            font-size: 2vmin;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(244,103,185,0.4);
+            transition: background-color 0.2s;
+        }
+        .back-btn:hover { background-color: #B34079; }
+        .back-btn svg { width: 2.5vmin; height: 2.5vmin; }
+
+        /* ── VIDEO a tutto schermo (ma ridotto per non essere tagliato) ── */
+        #video-player {
+            position: fixed;
+            /* Lo facciamo infilare leggermente SOTTO la cornice (6vmin invece di 6.5) per evitare fessure vuote */
+            top: 6vmin; 
+            left: 6vmin;
+            width: calc(100vw - 12vmin);
+            height: calc(100vh - 12vmin);
+            object-fit: cover;
+            border-radius: 6vmin;
+            z-index: 1;
+            background: #111;
+        }
+
+        /* ── CORNICE glossy sopra il video ── */
+        #frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            pointer-events: none; /* non blocca i click sul video */
+
+            /* Bordo salsicciotto molto spesso che arriva fino ai margini */
+            border: 6.5vmin solid #FFC1C1;
+            /* Arrotondamento degli angoli (l'angolo interno sul video sarà 12 - 6.5 = 5.5vmin) */
+            border-radius: 12vmin;
+            
+            /* Ombra esterna per coprire gli spigoli neri e ombra interna per profondità sul video */
+            box-shadow: 
+                0 0 0 5vmin #FFC1C1,
+                inset 0 1.5vmin 3vmin rgba(0,0,0,0.4),
+                inset 0 0 0 0.5vmin rgba(255,255,255,0.6);
+        }
+
+        /* Effetti di luce glossy e 3D del salsicciotto usando ::after */
+        #frame::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            /* Ombre proiettate dall'esterno verso l'interno, che cadono ESATTAMENTE sul bordo spesso 6.5vmin */
+            box-shadow: 
+                /* Luce forte in alto e a sinistra */
+                inset  1.5vmin  2.5vmin 3vmin rgba(255,255,255,0.9),
+                /* Ombra scura in basso e a destra per il 3D */
+                inset -1.5vmin -2.5vmin 3vmin rgba(180,80,110,0.8),
+                /* Riflesso plastico sottile */
+                inset  3vmin  4vmin 1vmin rgba(255,255,255,0.5);
+        }
+
+        /* ── BOTTONE DVD rimbalzante ── */
+        #dvd-btn {
+            position: fixed;
+            z-index: 20;
+            /* Padding ridotto per mantenere la stessa grandezza totale del bottone 
+               nonostante il testo sia molto più grande */
+            padding: 0.15em 0.8em;
+            line-height: 1.1;
+            background: #FFC1C1;
+            color: #fff;
+            font-family: 'PramukhRoundedEBItalic', sans-serif;
+            font-weight: 800;
+            font-style: italic;
+            /* Grandezza testo notevolmente aumentata in modo che occupi gran parte del bottone */
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+
+            /* Effetto glossy salsicciotto */
+            box-shadow:
+                inset 0  5px 10px rgba(255,255,255,0.8),
+                inset 0 -4px 10px rgba(180,80,110,0.4),
+                0 8px 25px rgba(0,0,0,0.3),
+                0 3px  6px rgba(255,255,255,0.5);
+
+            background-image: linear-gradient(
+                160deg,
+                rgba(255,255,255,0.4) 0%,
+                rgba(255,193,193,0)    50%,
+                rgba(200,100,130,0.2) 100%
+            );
+            background-color: #FFC1C1;
+
+            /* Transizione fluida */
+            transition: box-shadow 0.1s, transform 0.1s;
+        }
+
+        #dvd-btn:active {
+            box-shadow:
+                inset 0  3px  6px rgba(255,255,255,0.6),
+                inset 0 -2px  6px rgba(180,80,110,0.4),
+                0 4px 12px rgba(0,0,0,0.25);
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Torna alla Home -->
+    <a href="./index.html" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Torna alla Home
+    </a>
+
+    <!-- VIDEO → aggiornato il percorso -->
+    <video id="video-player" preload="metadata">
+        <source src="./video/Video_Gioco_Compresso.mp4" type="video/mp4">
+        <p style="color:white;text-align:center;padding-top:40vh;">
+            Nessun video trovato.
+        </p>
+    </video>
+
+    <!-- CORNICE glossy (sopra il video, sotto il bottone) -->
+    <div id="frame"></div>
+
+    <!-- BOTTONE DVD rimbalzante -->
+    <button id="dvd-btn">PLAY</button>
+
+    <script>
+    (() => {
+        const btn    = document.getElementById('dvd-btn');
+        const player = document.getElementById('video-player');
+
+        /* ───── Stato bottone PLAY/PAUSE ───── */
+        btn.addEventListener('click', () => {
+            if (player.paused) {
+                player.play().catch(() => {}); // ignora errori se non c'è video
+                btn.textContent = 'PAUSE';
+            } else {
+                player.pause();
+                btn.textContent = 'PLAY';
+            }
+            // Il bottone NON si ferma mai → nessuna interruzione del loop RAF
+        });
+
+        /* ───── Logica DVD rimbalzante ───── */
+
+        // Posizione e velocità iniziali
+        let x = 80, y = 80;              // px dall'angolo top-left
+        let vx = 260, vy = 200;          // px/sec — velocità iniziale
+
+        // Piccola variazione casuale per non partire sempre uguale
+        vx *= (Math.random() > 0.5 ? 1 : -1);
+        vy *= (Math.random() > 0.5 ? 1 : -1);
+
+        let lastTime = null;
+
+        function loop(ts) {
+            if (lastTime === null) lastTime = ts;
+            const dt = (ts - lastTime) / 1000; // secondi
+            lastTime = ts;
+
+            const bw = btn.offsetWidth;
+            const bh = btn.offsetHeight;
+            const ww = window.innerWidth;
+            const wh = window.innerHeight;
+
+            // Muovi
+            x += vx * dt;
+            y += vy * dt;
+
+            // Rimbalzo bordo destra
+            if (x + bw >= ww) { x = ww - bw; vx = -Math.abs(vx); }
+            // Rimbalzo bordo sinistra
+            if (x <= 0)        { x = 0;       vx =  Math.abs(vx); }
+            // Rimbalzo bordo basso
+            if (y + bh >= wh)  { y = wh - bh; vy = -Math.abs(vy); }
+            // Rimbalzo bordo alto
+            if (y <= 0)        { y = 0;       vy =  Math.abs(vy); }
+
+            btn.style.left = x + 'px';
+            btn.style.top  = y + 'px';
+
+            requestAnimationFrame(loop);
+        }
+
+        requestAnimationFrame(loop);
+    })();
+    </script>
+</body>
+</html>
